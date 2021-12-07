@@ -2,5 +2,6 @@ I’m linking several Wallets to an accounting package. I don’t want any link 
 Required Fields :
 Date, Time, Direction, Address Label, Address Book Label, Amount, Fee.
 Required for Multi Wallet :
-Wallet Name
+Wallet Name.
+
 The code works. 
