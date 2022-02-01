@@ -1,0 +1,26 @@
+Sub Import()
+       Dim StrLine As String
+    Dim FSO As New FileSystemObject
+    Dim TSO As Object
+    Dim StrLineElements As Variant
+    Dim Index As Long
+    Dim i As Long
+    Dim Delimiter As String
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+    Set TSO = FSO.OpenTextFile("D:\Monero\wallets\Common\diff.csv")
+ 
+    Delimiter = "," 'the delimiter that is used in your text file
+    Index = 1
+ 
+    Do While TSO.AtEndOfStream = False
+       StrLine = TSO.ReadLine
+       StrLineElements = Split(StrLine, Delimiter)
+       For i = LBound(StrLineElements) To UBound(StrLineElements)
+           Cells(Index, i + 1).Value = StrLineElements(i) 'this code will start pasting the text file’s content from the active worksheet’s A1 (Cell(1,1)) cell
+       Next i
+       Index = Index + 1
+    Loop
+ 
+TSO.Close
+ 
+End Sub
