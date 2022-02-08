@@ -3,158 +3,176 @@
 Context=None|
 Groups=Start:1
 1|Run|C:/Program Files (x86)/Intuit/QuickBooks Enterprise Solutions 18.0/QBW32EnterpriseAccountant.exe, C:/Program Files (x86)/Intuit/QuickBooks Enterprise Solutions 18.0|1|0|Run|||||1|
-2|[Pause]||1|35000|Sleep|||||2|
-3|WinWait|15000|1|333|WinWait||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0|||3|
-4|WinMenuSelectItem|AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0 ahk_class MauiFrame ahk_exe QBW32.EXE, , File, Toggle to Another Edition|1|0|WinMenuSelectItem|||||5|
-5|[Pause]||1|50|Sleep|||||6|
-6|[Text]|{Enter}|1|0|Send|||||7|
-7|[Pause]||1|2000|Sleep|||||8|
-8|WinActivate||1|333|WinActivate||Select QuickBooks Desktop Industry-Specific Edition|||9|
-9|[Text]|{Down}{Down}{Down}|1|0|Send|||||11|
-10|[Text]|{Space}|1|0|Send|||||12|
-11|[Text]|{Enter}|1|0|Send|||||13|
+2|[Pause]||1|25000|Sleep|||||2|
+3|WinWait|35000|1|333|WinWait||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0|||3|
+4|[Pause]||1|300|Sleep|||||5|
+5|WinMenuSelectItem|AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0 ahk_class MauiFrame ahk_exe QBW32.EXE, , File, Toggle to Another Edition|1|0|WinMenuSelectItem|||||6|
+6|[Pause]||1|500|Sleep|||||7|
+7|[Text]|{Enter}|1|0|Send|||||8|
+8|[Pause]||1|2000|Sleep|||||9|
+9|WinActivate||1|333|WinActivate||Select QuickBooks Desktop Industry-Specific Edition|||10|
+10|[Text]|{Down}{Down}{Down}|1|0|Send|||||12|
+11|[Text]|{Space}|1|0|Send|||||13|
 12|[Text]|{Enter}|1|0|Send|||||14|
-13|WinClose|5|1|333|WinClose||Automatic Backup|||15|
-14|WinWait||1|333|WinWait||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0|||17|
-015|[Text]|{Enter}|1|0|Send|||||19|
-16|Run|C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe, C:/Monero|1|0|Run|||||21|
-17|[Pause]||1|500|Sleep|||||23|
-18|[Text]|./monerod.exe --data-dir E:/BitMonero {Enter}|1|0|Send|||||24|
-19|[MsgBox]|Please click OK when the daemon is synced|1|0|MsgBox|262144||||25|
-20|[Assign Variable]|x := 0|1|0|Variable|Expression||||26|
-21|[Assign Variable]|Inout := "1"|1|0|Variable|Expression||||27|
-22|[Label]|Outer|1|0|Label|||||28|
-23|[LoopStart]|LoopStart|0|0|Loop|Wallet := "x"||||29|
-24|[Assign Variable]|x := x+"1"|1|0|Variable|Expression||||31|
-25|FileReadLine|Wallet, D:\Monero\Wallets.txt, %x%|1|0|FileReadLine|||||32|
-26|Run|C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe, C:/Monero|1|0|Run|||||33|
-27|[Pause]||1|500|Sleep|||||34|
-28|[Text]|./monero-wallet-cli --wallet-file=D:/Monero/wallets/%Wallet% --password Ra1jlt01|1|0|Send|||||35|
-29|[Pause]||1|500|Sleep|||||36|
-30|[Text]|{Enter}|1|0|Send|||||37|
-31|[Pause]||1|500|Sleep|||||38|
-32|[Text]|refresh {Enter}|1|0|Send|||||39|
-33|[MsgBox]|Please click OK when the wallet is synced|1|0|MsgBox|262144||||40|
-34|[Text]|export_transfers {Enter}|1|0|Send|||||41|
-35|[Pause]||1|500|Sleep|||||42|
-36|[Text]|exit{Enter}|1|0|Send|||||43|
-37|[Pause]||1|500|Sleep|||||44|
-38|[Text]|exit{Enter}|1|0|Send|||||45|
-39|FileMove|C:/Monero/output0.csv, D:/Monero/wallets/%Wallet%1/txs.csv|1|0|FileMove|||||46|
-40|Run|C:/Program Files/Git/git-bash.exe, D:/Monero/wallets/%Wallet%1|1|0|Run|||||47|
-41|[Pause]||1|1000|Sleep|||||48|
-42|[Text]|comm  -1 -3 --nocheck-order  txs-old.csv txs.csv > diff.csv{Enter} |1|0|Send|||||49|
-43|[Pause]||1|1000|Sleep|||||50|
-44|[Text]|exit{Enter}|1|0|Send|||||51|
-45|FileDelete|D:\Monero\wallets\Common\diff.csv|1|0|FileDelete|||||52|
-46|FileMove|D:\Monero\wallets\%Wallet%1\diff.csv, D:\Monero\wallets\Common\diff.csv|1|0|FileMove|||||53|
-47|FileDelete|D:\Monero\wallets\%Wallet%1\txs-old-old-old.csv|1|0|FileDelete|||||54|
-48|FileMove|D:\Monero\wallets\%Wallet%1\txs-old-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old-old.csv|1|0|FileMove|||||55|
-49|FileMove|D:\Monero\wallets\%Wallet%1\txs-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old.csv|1|0|FileMove|||||56|
-50|FileMove|D:\Monero\wallets\%Wallet%1\txs.csv, D:\Monero\wallets\%Wallet%1\txs-old.csv|1|0|FileMove|||||57|
-51|[Pause]||1|500|Sleep|||||58|
-52|Run|D:\Excel\Book1.xlsm|1|0|Run|||||59|
-53|[Pause]||1|500|Sleep|||||60|
-54|WinActivate||1|333|WinActivate||Microsoft Excel - Book1.xlsm  [Read-Only]|||61|
-55|[Text]|!{F8}|1|0|Send|||||63|
-56|[Pause]||1|500|Sleep|||||64|
-57|[Text]|{Enter}|1|0|Send|||||65|
-58|[Pause]||1|500|Sleep|||||66|
-59|[Expression]|XL := ComObjActive("Excel.Application") |1|0|Expression|||||67|
-60|XL|XL.Range("B1").Select|1|0|COMInterface|Excel.Application||||68|
-61|XL|Inout := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||71|
-62|[LoopStart]|Inout !=  |1|0|While|||||72|
-63|XL|Inout := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||74|
-64|If String Contains|Inout, in|1|0|If_Statement|||||75|
-65|XL|XL.ActiveCell.Offset(0, 2).Select|1|0|COMInterface|Excel.Application||||77|
-66|XL|Time := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||78|
-67|XL|XL.ActiveCell.Offset(0, 13).Select|1|0|COMInterface|Excel.Application||||79|
-68|XL|Don := XL.ActiveCell.Value|1|0|COMInterface|Excel.Application||||80|
-69|Round|Amount := Don, 2|1|0|Function|||||81|
-70|XL|XL.ActiveCell.Offset(0, -1).Select|1|0|COMInterface|Excel.Application||||82|
-71|XL|Name := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||83|
-72|WinActivate||1|333|WinActivate||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)|||84|
-73|WinMenuSelectItem|AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant), , 6&, 2&|1|0|WinMenuSelectItem|||||86|
-74|[Pause]||1|2000|Sleep|||||87|
-75|[Text]|%Name%{Tab}|1|0|Send|||||88|
-76|[Pause]||1|500|Sleep|||||89|
-77|[Text]|{Tab}|1|0|Send|||||90|
-78|[Pause]||1|500|Sleep|||||91|
-79|[Text]|{Tab}|1|0|Send|||||92|
-80|[Pause]||1|500|Sleep|||||93|
-81|[Text]|{Tab}|1|0|Send|||||94|
-82|[Pause]||1|500|Sleep|||||95|
-83|[Text]|{Tab}|1|0|Send|||||96|
-84|[Pause]||1|500|Sleep|||||97|
-85|[Text]|{Tab}|1|0|Send|||||98|
-86|[Pause]||1|200|Sleep|||||99|
-87|[Text]|{Tab}|1|0|Send|||||100|
-88|[Pause]||1|500|Sleep|||||101|
-89|[Text]|{Tab}|1|0|Send|||||102|
-90|[Pause]||1|500|Sleep|||||103|
-91|[Text]|Donation{Tab}|1|0|Send|||||104|
-92|[Pause]||1|500|Sleep|||||105|
-93|[Text]|%Time%{Tab}|1|0|Send|||||106|
-94|[Pause]||1|500|Sleep|||||107|
-95|[Text]|{Tab}|1|0|Send|||||108|
-96|[Pause]||1|500|Sleep|||||109|
-97|[Text]|%Amount%|1|0|Send|||||110|
-98|[Text]|{Tab}|1|0|Send|||||111|
-99|[Pause]||1|500|Sleep|||||112|
-0100|[Text]|{Enter}|1|0|Send|||||113|
-101|[Text]|!a|1|0|Send|||||116|
-102|XL|XL.ActiveCell.Offset(1, -14).Select|1|0|COMInterface|Excel.Application||||118|
-103|[Pause]||1|1000|Sleep|||||119|
-104|Continue||1|0|Continue|||||120|
-105|[ElseIf] If String Contains|Inout, out|1|0|If_Statement|||||121|
-106|XL|XL.ActiveCell.Offset(0, 2).Select|1|0|COMInterface|Excel.Application||||124|
-107|XL|Date := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||125|
-108|XL|XL.ActiveCell.Offset(0, 13).Select|1|0|COMInterface|Excel.Application||||126|
-109|XL|Don := XL.ActiveCell.Value|1|0|COMInterface|Excel.Application||||127|
-110|Round|Amount := Don, 2|1|0|Function|||||128|
-111|WinActivate||1|333|WinActivate||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)|||129|
-112|[Text]|^w|1|0|Send|||||131|
-113|[Pause]||1|2000|Sleep|||||132|
-114|[Text]|Funding{Enter}|1|0|Send|||||133|
-115|[Pause]||1|500|Sleep|||||134|
-116|[Text]|{Tab}|1|0|Send|||||135|
-117|[Pause]||1|500|Sleep|||||136|
-118|[Text]|{Tab}|1|0|Send|||||137|
-119|[Pause]||1|500|Sleep|||||138|
-120|[Pause]||1|500|Sleep|||||139|
-121|[Text]|{Tab}|1|0|Send|||||140|
-122|[Pause]||1|500|Sleep|||||141|
-123|[Text]|%Amount%{Tab}|1|0|Send|||||142|
-124|[Pause]||1|500|Sleep|||||143|
-125|[Text]|%Date%|1|0|Send|||||144|
-126|[Text]|{Tab}|1|0|Send|||||145|
-127|[Text]|!m|1|0|Send|||||146|
-128|[Pause]||1|500|Sleep|||||147|
-129|[Text]|Test Payment|1|0|Send|||||148|
-130|[Pause]||1|500|Sleep|||||149|
-131|[Text]|{Tab}|1|0|Send|||||150|
-132|[Pause]||1|500|Sleep|||||151|
-133|[Text]|{Tab}|1|0|Send|||||152|
-134|[Pause]||1|500|Sleep|||||153|
-135|[Text]|1{Tab}|1|0|Send|||||154|
-136|[Pause]||1|500|Sleep|||||155|
-137|[Text]|%Amount%{Tab}|1|0|Send|||||156|
-138|[Pause]||1|500|Sleep|||||157|
-139|[Text]|!a|1|0|Send|||||158|
-140|[Pause]||1|500|Sleep|||||159|
-141|XL|XL := ComObjActive("Excel.Application")|1|0|COMInterface|Excel.Application||||160|
-142|XL|XL.ActiveCell.Offset(1, -15).Select|1|0|COMInterface|Excel.Application||||161|
-143|Continue||1|0|Continue|||||162|
-144|[LoopEnd]|LoopEnd|1|0|Loop|||||163|
-145|[Else]|Else|1|0|If_Statement|||||164|
-146|WinActivate||1|333|WinActivate||Microsoft Excel - Book1.xlsm  [Read-Only]|||167|
-147|WinClose||1|333|WinClose||Microsoft Excel - Book1.xlsm  [Read-Only]|||169|
-148|[Pause]||1|500|Sleep|||||171|
-149|[Text]|n|1|0|SendRaw|||||172|
-150|[MsgBox]|Turn off Excel|1|0|MsgBox|262144||||173|
-151|[Goto]|Outer|1|0|Goto|||||174|
-152|[LoopEnd]|LoopEnd|1|0|Loop|||||175|
-153|[End If]|EndIf|1|0|If_Statement|||||177|
+13|[Text]|{Enter}|1|0|Send|||||15|
+14|WinWait||1|333|WinWait||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)|||16|
+15|Run|C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe, C:/Monero|1|0|Run|||||18|
+16|[Pause]||1|1000|Sleep|||||19|
+17|[Text]|./monerod.exe --data-dir E:/BitMonero {Enter}|1|0|Send|||||20|
+18|[Pause]||1|300|Sleep|||||21|
+19|[MsgBox]|Please click OK when the daemon is synced|1|0|MsgBox|262144||||22|
+20|[Assign Variable]|x := 0|1|0|Variable|Expression||||23|
+21|[Assign Variable]|Inout := "1"|1|0|Variable|Expression||||24|
+22|[Label]|Outer|1|0|Label|||||25|
+23|[LoopStart]|LoopStart|0|0|Loop|Wallet := "z"||||26|
+24|[Assign Variable]|x := x+"1"|1|0|Variable|Expression||||28|
+25|FileReadLine|Wallet, D:\Monero\Wallets.txt, %x%|1|0|FileReadLine|||||29|
+26|Run|C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe, C:/Monero|1|0|Run|||||30|
+27|[Pause]||1|500|Sleep|||||31|
+28|[Text]|./monero-wallet-cli --wallet-file=D:/Monero/wallets/%Wallet% --password Ra1jlt01|1|0|Send|||||32|
+29|[Pause]||1|500|Sleep|||||33|
+30|[Text]|{Enter}|1|0|Send|||||34|
+31|[Pause]||1|500|Sleep|||||35|
+32|[Text]|refresh {Enter}|1|0|Send|||||36|
+33|[MsgBox]|Please click OK when the wallet is synced and QuickBooks is loaded|1|0|MsgBox|262144||||37|
+34|[Text]|export_transfers {Enter}|1|0|Send|||||38|
+35|[Pause]||1|500|Sleep|||||39|
+36|[Text]|exit{Enter}|1|0|Send|||||40|
+37|[Pause]||1|500|Sleep|||||41|
+38|[Text]|exit{Enter}|1|0|Send|||||42|
+39|FileMove|C:/Monero/output0.csv, D:/Monero/wallets/%Wallet%1/txs.csv|1|0|FileMove|||||43|
+40|Run|C:/Program Files/Git/git-bash.exe, D:/Monero/wallets/%Wallet%1|1|0|Run|||||44|
+41|[Pause]||1|1000|Sleep|||||45|
+42|[Text]|comm  -1 -3 --nocheck-order  txs-old.csv txs.csv > diff.csv{Enter} |1|0|Send|||||46|
+43|[Pause]||1|1000|Sleep|||||47|
+44|[Text]|exit{Enter}|1|0|Send|||||48|
+45|FileDelete|D:\Monero\wallets\Common\diff.csv|1|0|FileDelete|||||49|
+46|FileMove|D:\Monero\wallets\%Wallet%1\diff.csv, D:\Monero\wallets\Common\diff.csv|1|0|FileMove|||||50|
+47|FileDelete|D:\Monero\wallets\%Wallet%1\txs-old-old-old.csv|1|0|FileDelete|||||51|
+48|FileMove|D:\Monero\wallets\%Wallet%1\txs-old-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old-old.csv|1|0|FileMove|||||52|
+49|FileMove|D:\Monero\wallets\%Wallet%1\txs-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old.csv|1|0|FileMove|||||53|
+50|FileMove|D:\Monero\wallets\%Wallet%1\txs.csv, D:\Monero\wallets\%Wallet%1\txs-old.csv|1|0|FileMove|||||54|
+51|[Pause]||1|500|Sleep|||||55|
+52|Run|D:\Excel\Book1.xlsm|1|0|Run|||||56|
+53|[Pause]||1|500|Sleep|||||57|
+54|WinActivate||1|333|WinActivate||Microsoft Excel - Book1.xlsm  [Read-Only]|||58|
+55|[Text]|!{F8}|1|0|Send|||||60|
+56|[Pause]||1|500|Sleep|||||61|
+57|[Text]|{Enter}|1|0|Send|||||62|
+58|[Pause]||1|500|Sleep|||||63|
+59|[Expression]|XL := ComObjActive("Excel.Application") |1|0|Expression|||||64|
+60|XL|XL.Range("B1").Select|1|0|COMInterface|Excel.Application||||65|
+61|XL|Inout := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||68|
+62|[LoopStart]|Inout !=  |1|0|While|||||69|
+63|XL|Inout := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||71|
+64|If String Contains|Inout, in|1|0|If_Statement|||||72|
+65|XL|XL.ActiveCell.Offset(0, 2).Select|1|0|COMInterface|Excel.Application||||74|
+66|XL|Time := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||75|
+67|XL|XL.ActiveCell.Offset(0, 1).Select|1|0|COMInterface|Excel.Application||||76|
+68|XL|ReportAmount := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||77|
+69|XL|XL.ActiveCell.Offset(0, 1).Select|1|0|COMInterface|Excel.Application||||78|
+70|XL|Balance := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||79|
+71|XL|XL.ActiveCell.Offset(0, 10).Select|1|0|COMInterface|Excel.Application||||80|
+72|XL|Name := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||81|
+73|XL|XL.ActiveCell.Offset(0, 1).Select|1|0|COMInterface|Excel.Application||||82|
+74|XL|Don := XL.ActiveCell.Value|1|0|COMInterface|Excel.Application||||83|
+75|Round|Amount := Don, 2|1|0|Function|||||84|
+76|XL|XL.ActiveCell.Offset(0, 2).Select|1|0|COMInterface|Excel.Application||||85|
+77|XL|ReportName := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||86|
+078|[MsgBox]|RN %ReportName%`nTime %Time%`nRA%ReportAmount%`nBal  %Balance%`nName %Name%`nAmount %Amount%|1|0|MsgBox|0||||87|
+79|FileAppend|%ReportName%   %Time%    %ReportAmount%    %Balance%{Enter}, D:\Monero\wallets\%Wallet%1\Balance.txt|1|0|FileAppend|||||97|
+80|WinActivate||1|333|WinActivate||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)|||99|
+81|[Pause]||1|300|Sleep|||||101|
+82|WinMenuSelectItem|AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant), , 6&, 2&|1|0|WinMenuSelectItem|||||102|
+83|[Pause]||1|2000|Sleep|||||103|
+84|[Text]|%Name%{Tab}|1|0|Send|||||104|
+85|[Pause]||1|1000|Sleep|||||105|
+86|[Text]|{Tab}|1|0|Send|||||106|
+87|[Pause]||1|1000|Sleep|||||107|
+88|[Text]|{Tab}|1|0|Send|||||108|
+89|[Pause]||1|1000|Sleep|||||109|
+90|[Text]|{Tab}|1|0|Send|||||110|
+91|[Pause]||1|1000|Sleep|||||111|
+92|[Text]|{Tab}|1|0|Send|||||112|
+93|[Pause]||1|1000|Sleep|||||113|
+94|[Text]|{Tab}|1|0|Send|||||114|
+95|[Pause]||1|1000|Sleep|||||115|
+96|[Text]|{Tab}|1|0|Send|||||116|
+97|[Pause]||1|1000|Sleep|||||117|
+98|[Text]|{Tab}|1|0|Send|||||118|
+99|[Pause]||1|1000|Sleep|||||119|
+100|[Text]|Donation{Tab}|1|0|Send|||||120|
+101|[Pause]||1|1000|Sleep|||||121|
+102|[Text]|%Time%{Tab}|1|0|Send|||||122|
+103|[Pause]||1|1000|Sleep|||||123|
+104|[Text]|{Tab}|1|0|Send|||||124|
+105|[Pause]||1|1000|Sleep|||||125|
+106|[Text]|%Amount%|1|0|Send|||||126|
+107|[Pause]||1|1000|Sleep|||||127|
+108|[Text]|{Tab}|1|0|Send|||||128|
+109|[Pause]||1|1000|Sleep|||||129|
+0110|[Text]|{Enter}|1|0|Send|||||130|
+111|[Text]|!a|1|0|Send|||||133|
+112|XL|XL.ActiveCell.Offset(1, -17).Select|1|0|COMInterface|Excel.Application||||135|
+113|[Pause]||1|1000|Sleep|||||136|
+114|Continue||1|0|Continue|||||137|
+115|[ElseIf] If String Contains|Inout, out|1|0|If_Statement|||||138|
+116|XL|XL.ActiveCell.Offset(0, 2).Select|1|0|COMInterface|Excel.Application||||141|
+117|XL|Date := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||142|
+118|XL|XL.ActiveCell.Offset(0, 1).Select|1|0|COMInterface|Excel.Application||||143|
+119|XL|ReportAmount := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||144|
+120|XL|XL.ActiveCell.Offset(0, 1).Select|1|0|COMInterface|Excel.Application||||145|
+121|XL|Balance := XL.ActiveCell.Text|1|0|COMInterface|Excel.Application||||146|
+122|XL|XL.ActiveCell.Offset(0, 11).Select|1|0|COMInterface|Excel.Application||||147|
+123|XL|Don := XL.ActiveCell.Value|1|0|COMInterface|Excel.Application||||148|
+124|Round|Amount := Don, 2|1|0|Function|||||149|
+125|FileAppend|Test Payment    %Date%    -%ReportAmount%    %Balance% {Enter}, D:\Monero\wallets\%Wallet%1\Balance.txt|1|0|FileAppend|||||150|
+126|WinActivate||1|333|WinActivate||AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)|||151|
+127|[Pause]||1|300|Sleep|||||153|
+128|[Text]|^w|1|0|Send|||||154|
+129|[Pause]||1|2000|Sleep|||||155|
+130|[Text]|Funding{Enter}|1|0|Send|||||156|
+131|[Pause]||1|500|Sleep|||||157|
+132|[Text]|{Tab}|1|0|Send|||||158|
+133|[Pause]||1|500|Sleep|||||159|
+134|[Text]|{Tab}|1|0|Send|||||160|
+135|[Pause]||1|500|Sleep|||||161|
+136|[Pause]||1|500|Sleep|||||162|
+137|[Text]|{Tab}|1|0|Send|||||163|
+138|[Pause]||1|500|Sleep|||||164|
+139|[Text]|%Amount%{Tab}|1|0|Send|||||165|
+140|[Pause]||1|500|Sleep|||||166|
+141|[Text]|%Date%|1|0|Send|||||167|
+142|[Text]|{Tab}|1|0|Send|||||168|
+143|[Text]|!m|1|0|Send|||||169|
+144|[Pause]||1|500|Sleep|||||170|
+145|[Text]|Test|1|0|Send|||||171|
+146|[Pause]||1|500|Sleep|||||172|
+147|[Text]|{Tab}|1|0|Send|||||173|
+148|[Pause]||1|500|Sleep|||||174|
+149|[Text]|{Tab}|1|0|Send|||||175|
+150|[Pause]||1|500|Sleep|||||176|
+151|[Text]|1{Tab}|1|0|Send|||||177|
+152|[Pause]||1|500|Sleep|||||178|
+153|[Text]|%Amount%{Tab}|1|0|Send|||||179|
+154|[Pause]||1|500|Sleep|||||180|
+155|[Text]|!a|1|0|Send|||||181|
+156|[Pause]||1|500|Sleep|||||182|
+157|XL|XL := ComObjActive("Excel.Application")|1|0|COMInterface|Excel.Application||||183|
+158|XL|XL.ActiveCell.Offset(1, -15).Select|1|0|COMInterface|Excel.Application||||184|
+159|Continue||1|0|Continue|||||185|
+160|[LoopEnd]|LoopEnd|1|0|Loop|||||186|
+161|[Else]|Else|1|0|If_Statement|||||187|
+162|WinActivate||1|333|WinActivate||Microsoft Excel|||190|
+163|WinClose||1|333|WinClose||Microsoft Excel|||192|
+164|[Pause]||1|500|Sleep|||||194|
+165|[Text]|n|1|0|SendRaw|||||195|
+166|[Pause]||1|1000|Sleep|||||196|
+167|[MsgBox]|Turn off Excel|1|0|MsgBox|262144||||197|
+168|[Goto]|Outer|1|0|Goto|||||198|
+169|[LoopEnd]|LoopEnd|1|0|Loop|||||199|
+170|[End If]|EndIf|1|0|If_Statement|||||201|
+171|WinWait||1|333|WinWait||QuickBooks Desktop Login|||202|
 
 [PMC Code v5.4.1]|F4||1|Window,2,Fast,0,1,Input,-1,-1,1|1|Macro2
 Context=None|
@@ -162,8 +180,9 @@ Groups=Start:1
 1|FileDelete|D:\Monero\wallets\Avengers1\txs-old.csv|1|0|FileDelete|||||1|
 2|FileDelete|D:\Monero\wallets\Curley1\txs-old.csv|1|0|FileDelete|||||2|
 3|FileDelete|D:\Monero\wallets\Moe1\txs-old.csv|1|0|FileDelete|||||3|
-4|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Avengers1\txs-old.csv|1|0|FileCopy|||||4|
-5|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Curley1\txs-old.csv|1|0|FileCopy|||||5|
-6|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Larry1\txs-old.csv|1|0|FileCopy|||||6|
+4|FileDelete|D:\Monero\wallets\Larry1\txs-old.csv|1|0|FileDelete|||||4|
+5|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Avengers1\txs-old.csv|1|0|FileCopy|||||5|
+6|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Curley1\txs-old.csv|1|0|FileCopy|||||6|
 7|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Moe1\txs-old.csv|1|0|FileCopy|||||7|
+8|FileCopy|D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Larry1\txs-old.csv|1|0|FileCopy|||||8|
 

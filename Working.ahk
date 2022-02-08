@@ -18,11 +18,12 @@ SetBatchLines -1
 F3::
 Macro1:
 Run, C:/Program Files (x86)/Intuit/QuickBooks Enterprise Solutions 18.0/QBW32EnterpriseAccountant.exe, C:/Program Files (x86)/Intuit/QuickBooks Enterprise Solutions 18.0
-Sleep, 40000
-WinWait, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0, , 15000
+Sleep, 25000
+WinWait, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0, , 35000
 Sleep, 333
-WinMenuSelectItem, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0 ahk_class MauiFrame ahk_exe QBW32.EXE, , File, Toggle to Another Edition
-Sleep, 50
+Sleep, 300
+WinMenuSelectItem, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Accountant 18.0 ahk_class MauiFrame ahk_exe QBW32.EXE, , File, Toggle to Another Edition
+Sleep, 500
 Send, {Enter}
 Sleep, 2000
 WinActivate, Select QuickBooks Desktop Industry-Specific Edition
@@ -31,16 +32,12 @@ Send, {Down}{Down}{Down}
 Send, {Space}
 Send, {Enter}
 Send, {Enter}
-WinClose, Automatic Backup, , 5
+WinWait, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
 Sleep, 333
-WinWait, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
-Sleep, 333
-/*
-Send, {Enter}
-*/
 Run, C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe, C:/Monero
-Sleep, 500
+Sleep, 1000
 Send, ./monerod.exe --data-dir E:/BitMonero {Enter}
+Sleep, 300
 MsgBox, 262144, , Please click OK when the daemon is synced
 x := 0
 Inout := "1"
@@ -54,19 +51,19 @@ Loop
     Send, ./monero-wallet-cli --wallet-file=D:/Monero/wallets/%Wallet% --password Ra1jlt01
     Sleep, 500
     Send, {Enter}
-    Sleep, 300
+    Sleep, 500
     Send, refresh {Enter}
-    MsgBox, 262144, , Please click OK when the wallet is synced
+    MsgBox, 262144, , Please click OK when the wallet is synced and QuickBooks is loaded
     Send, export_transfers {Enter}
-    Sleep, 300
+    Sleep, 500
     Send, exit{Enter}
-    Sleep, 300
+    Sleep, 500
     Send, exit{Enter}
     FileMove, C:/Monero/output0.csv, D:/Monero/wallets/%Wallet%1/txs.csv
     Run, C:/Program Files/Git/git-bash.exe, D:/Monero/wallets/%Wallet%1
-    Sleep, 3000
+    Sleep, 1000
     Send, comm  -1 -3 --nocheck-order  txs-old.csv txs.csv > diff.csv{Enter} 
-    Sleep, 3000
+    Sleep, 1000
     Send, exit{Enter}
     FileDelete, D:\Monero\wallets\Common\diff.csv
     FileMove, D:\Monero\wallets\%Wallet%1\diff.csv, D:\Monero\wallets\Common\diff.csv
@@ -74,15 +71,16 @@ Loop
     FileMove, D:\Monero\wallets\%Wallet%1\txs-old-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old-old.csv
     FileMove, D:\Monero\wallets\%Wallet%1\txs-old.csv, D:\Monero\wallets\%Wallet%1\txs-old-old.csv
     FileMove, D:\Monero\wallets\%Wallet%1\txs.csv, D:\Monero\wallets\%Wallet%1\txs-old.csv
-    Sleep, 300
+    Sleep, 500
     Run, D:\Excel\Book1.xlsm
-    Sleep, 300
+    Sleep, 500
     WinActivate, Microsoft Excel - Book1.xlsm  [Read-Only]
     Sleep, 333
     Send, !{F8}
-    Sleep, 300
+    Sleep, 500
     Send, {Enter}
-    Sleep, 300
+    Sleep, 500
+    XL := ComObjActive("Excel.Application") 
     If (!IsObject(XL))
         XL := ComObjCreate("Excel.Application")
     XL.Range("B1").Select
@@ -94,110 +92,133 @@ Loop
         {
             XL.ActiveCell.Offset(0, 2).Select
             Time := XL.ActiveCell.Text
-            XL.ActiveCell.Offset(0, 13).Select
+            XL.ActiveCell.Offset(0, 1).Select
+            ReportAmount := XL.ActiveCell.Text
+            XL.ActiveCell.Offset(0, 1).Select
+            Balance := XL.ActiveCell.Text
+            XL.ActiveCell.Offset(0, 10).Select
+            Name := XL.ActiveCell.Text
+            XL.ActiveCell.Offset(0, 1).Select
             Don := XL.ActiveCell.Value
             Amount := Round(Don, 2)
-            XL.ActiveCell.Offset(0, -1).Select
-            Name := XL.ActiveCell.Text
-            WinActivate, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
+            XL.ActiveCell.Offset(0, 2).Select
+            ReportName := XL.ActiveCell.Text
+            /*
+            MsgBox, 0, , 
+            (LTrim
+            RN %ReportName%
+            Time %Time%
+            RA%ReportAmount%
+            Bal  %Balance%
+            Name %Name%
+            Amount %Amount%
+            )
+            */
+            FileAppend, %ReportName%   %Time%    %ReportAmount%    %Balance%{Enter}, D:\Monero\wallets\%Wallet%1\Balance.txt
+            WinActivate, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
             Sleep, 333
-            WinMenuSelectItem, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant), , 6&, 2&
-            Sleep, 5000
+            Sleep, 300
+            WinMenuSelectItem, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant), , 6&, 2&
+            Sleep, 2000
             Send, %Name%{Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 200
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, Donation{Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, %Time%{Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, %Amount%
+            Sleep, 1000
             Send, {Tab}
-            Sleep, 300
+            Sleep, 1000
             Send, 
             /*
             Send, {Enter}
             */
             Send, !a
-            XL.ActiveCell.Offset(1, -14).Select
-            Sleep, 3000
+            XL.ActiveCell.Offset(1, -17).Select
+            Sleep, 1000
             Continue
         }
         Else IfInString, Inout, out
         {
             XL.ActiveCell.Offset(0, 2).Select
             Date := XL.ActiveCell.Text
-            XL.ActiveCell.Offset(0, 13).Select
+            XL.ActiveCell.Offset(0, 1).Select
+            ReportAmount := XL.ActiveCell.Text
+            XL.ActiveCell.Offset(0, 1).Select
+            Balance := XL.ActiveCell.Text
+            XL.ActiveCell.Offset(0, 11).Select
             Don := XL.ActiveCell.Value
             Amount := Round(Don, 2)
-            WinActivate, AvengersAu  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
+            FileAppend, Test Payment    %Date%    -%ReportAmount%    %Balance% {Enter}, D:\Monero\wallets\%Wallet%1\Balance.txt
+            WinActivate, AvengersAustralia  - Intuit QuickBooks Enterprise Solutions: Nonprofit 18.0 (via Accountant)
             Sleep, 333
+            Sleep, 300
             Send, ^w
-            Sleep, 1000
-            Send, Fund{Enter}
-            Sleep, 300
+            Sleep, 2000
+            Send, Funding{Enter}
+            Sleep, 500
             Send, {Tab}
-            Sleep, 300
+            Sleep, 500
             Send, {Tab}
-            Sleep, 300
-            Sleep, 300
+            Sleep, 500
+            Sleep, 500
             Send, {Tab}
-            Sleep, 300
+            Sleep, 500
             Send, %Amount%{Tab}
-            Sleep, 300
+            Sleep, 500
             Send, %Date%
             Send, {Tab}
             Send, !m
-            Sleep, 300
+            Sleep, 500
             Send, Test
-            Sleep, 300
+            Sleep, 500
             Send, {Tab}
-            Sleep, 300
+            Sleep, 500
             Send, {Tab}
-            Sleep, 300
+            Sleep, 500
             Send, 1{Tab}
-            Sleep, 300
+            Sleep, 500
             Send, %Amount%{Tab}
-            Sleep, 300
+            Sleep, 500
             Send, !a
-            Sleep, 300
+            Sleep, 500
             XL := ComObjActive("Excel.Application")
             XL.ActiveCell.Offset(1, -15).Select
             Continue
         }
-        WinClose, Microsoft Excel - Book1.xlsm
+    }
+    Else
+    {
+        WinActivate, Microsoft Excel
         Sleep, 333
-        Sleep, 300
+        WinClose, Microsoft Excel
+        Sleep, 333
+        Sleep, 500
         SendRaw, n
+        Sleep, 1000
+        MsgBox, 262144, , Turn off Excel
         Goto, Outer
     }
-    Until, Wallet := "x"
+    Until, Wallet := "z"
 }
-Return
-
-F4::
-Macro2:
-FileDelete, D:\Monero\wallets\Avengers1\txs-old.csv
-FileDelete, D:\Monero\wallets\Larry1\txs-old.csv
-FileDelete, D:\Monero\wallets\Curley1\txs-old.csv
-FileDelete, D:\Monero\wallets\Moe1\txs-old.csv
-FileCopy, D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Avengers1\txs-old.csv
-FileCopy, D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Curley1\txs-old.csv
-FileCopy, D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Larry1\txs-old.csv
-FileCopy, D:\Monero\wallets\txs-old.csv, D:\Monero\wallets\Moe1\txs-old.csv
+WinWait, QuickBooks Desktop Login
+Sleep, 333
 Return
 
